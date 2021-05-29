@@ -1,19 +1,18 @@
 package com.holotube.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.holotube.databinding.ChannelListItemBinding
+import com.holotube.databinding.UpcomingListItemBinding
 import com.holotube.network.Channel
 
-class LiveChannelAdapter :
-    ListAdapter<Channel, LiveChannelAdapter.ViewHolder>(ChannelDiffCallback) {
-
+class UpcomingAdapter : ListAdapter<Channel, UpcomingAdapter.ViewHolder>(ChannelDiffCallback) {
     class ViewHolder(
         private var binding:
-        ChannelListItemBinding
+        UpcomingListItemBinding
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(channel: Channel) {
@@ -24,7 +23,7 @@ class LiveChannelAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            ChannelListItemBinding.inflate(
+            UpcomingListItemBinding.inflate(
                 LayoutInflater.from(parent.context)
             )
         )
@@ -43,6 +42,4 @@ class LiveChannelAdapter :
             return oldItem == newItem
         }
     }
-
 }
-

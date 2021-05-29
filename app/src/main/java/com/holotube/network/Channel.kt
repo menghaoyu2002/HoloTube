@@ -1,7 +1,6 @@
 package com.holotube.network
 
 import com.squareup.moshi.Json
-import java.util.*
 
 data class ChannelList(
     val live: List<Channel>,

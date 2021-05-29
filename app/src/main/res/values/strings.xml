@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">HoloTube</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="video_thumbnail_description">Video Thumbnail</string>
     <string name="channel_profile_picture_description">Channel Profile Picture</string>
+    <string name="stream_start_time_diff"> Started streaming %1$s %2$s ago </string>
+    <string name="upcoming_time_diff"> Live in %1$s %2$s </string>
+    <string name="hours">hour</string>
+    <string name="minutes">minute</string>
+    <string name="viewCount">%1$s Watching\t - \t</string>
+    <string name="scheduledStart"> Scheduled for %1$s</string>
 </resources>

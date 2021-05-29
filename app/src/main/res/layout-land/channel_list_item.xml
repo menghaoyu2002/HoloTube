@@ -12,18 +12,18 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/backgroundColor">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/profile_picture_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
             app:cardCornerRadius="250dp"
-            app:layout_constraintStart_toStartOf="@+id/thumbnail"
-            app:layout_constraintTop_toBottomOf="@id/thumbnail">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintStart_toEndOf="@+id/thumbnail"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/profile_picture"
@@ -38,15 +38,17 @@
         <TextView
             android:id="@+id/stream_title"
             style="@style/cardViewTextStyle"
+            android:layout_height="wrap_content"
             android:text="@{channel.streamTitle}"
             android:textColor="@color/mainTextColor"
             android:textSize="16sp"
             app:layout_constrainedWidth="true"
-            app:layout_constraintBottom_toTopOf="@+id/channel_name"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@id/profile_picture_container"
-            app:layout_constraintTop_toBottomOf="@id/thumbnail"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.413"
             tools:text="Sample Stream Title" />
 
         <TextView
@@ -58,25 +60,26 @@
             app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@id/profile_picture_container"
-            app:layout_constraintTop_toBottomOf="@id/stream_title"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/stream_title"
             tools:text="Sample Channel Name" />
 
         <TextView
             android:id="@+id/view_count"
             style="@style/cardViewTextStyle"
+            android:layout_marginStart="16dp"
             android:paddingBottom="10sp"
             android:textColor="@color/secondaryTextColor"
             android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@id/profile_picture_container"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toBottomOf="@id/channel_name"
             app:viewCount="@{channel.viewCount}"
             tools:text="XXXX Viewers \t - \t" />
 
         <ImageView
             android:id="@+id/thumbnail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="361dp"
+            android:layout_height="218dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/video_thumbnail_description"
             android:paddingBottom="5sp"
@@ -96,8 +99,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/view_count"
-            app:startTime="@{channel.scheduledStart}"
+            app:startTime="@{channel.startTime}"
             tools:text="Started XXXX Hours Ago" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="448dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

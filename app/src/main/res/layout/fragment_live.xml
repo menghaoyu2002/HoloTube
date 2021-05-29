@@ -4,17 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.holotube.live.ChannelViewModel" />
     </data>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/channel_list"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:listData="@{viewModel.channels.live}"
-        tools:listitem="@layout/channel_list_item"/>
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/mainTextColor"
+            android:textSize="24sp"
+            app:HoloApiStatus="@{viewModel.status}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/live_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:listDataLive="@{viewModel.channels.live}"
+            tools:listitem="@layout/channel_list_item" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

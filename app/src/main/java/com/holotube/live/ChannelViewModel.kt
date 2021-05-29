@@ -1,10 +1,7 @@
 package com.holotube.live
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.holotube.network.Channel
 import com.holotube.network.ChannelList
 import com.holotube.network.HoloApi
@@ -13,24 +10,28 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+enum class HoloApiStatus { LOADING, ERROR, DONE }
+
 class ChannelViewModel : ViewModel() {
     private val _channels = MutableLiveData<ChannelList>()
 
     val channels: LiveData<ChannelList>
         get() = _channels
 
+    private val _status = MutableLiveData<HoloApiStatus>()
 
-    init {
-        getChannels()
-    }
+    val status: LiveData<HoloApiStatus>
+        get() = _status
 
-    private fun getChannels() {
+    fun getAllChannels() {
+        _status.value = HoloApiStatus.LOADING
         viewModelScope.launch {
             try {
                 _channels.value = HoloApi.retrofitService.getChannelList()
-                Log.i("Response", "Success")
+                _status.value = HoloApiStatus.DONE
             } catch (e: Exception) {
-                Log.i("Response", "Failed $e.message")
+                Log.e("Response", "Failed $e.message")
+                _status.value = HoloApiStatus.ERROR
             }
         }
     }

@@ -6,8 +6,11 @@
     app:startDestination="@id/liveFragment">
 
     <fragment
+        android:id="@+id/upcomingFragment"
+        android:name="com.holotube.upcoming.UpcomingFragment"
+        android:label="UpcomingFragment" />
+    <fragment
         android:id="@+id/liveFragment"
         android:name="com.holotube.live.LiveFragment"
-        android:label="fragment_live"
-        tools:layout="@layout/fragment_live" />
+        android:label="LiveFragment" />
 </navigation>
