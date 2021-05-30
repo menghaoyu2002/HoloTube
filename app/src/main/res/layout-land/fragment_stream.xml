@@ -10,29 +10,38 @@
             type="com.holotube.network.Channel" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/stream_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/backgroundColor"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:theme="@style/NoActionBar"
         tools:context=".stream.StreamFragment">
 
         <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
             android:id="@+id/stream_player"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:theme="@style/NoActionBar"
             app:enableAutomaticInitialization="false"
             app:enableLiveVideoUi="true"
-            app:showYouTubeButton="false"
-            app:showFullScreenButton="false"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/stream_chat"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:showFullScreenButton="false"
+            app:showYouTubeButton="false" />
 
         <WebView
             android:id="@+id/stream_chat"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

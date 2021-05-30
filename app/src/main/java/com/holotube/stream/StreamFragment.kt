@@ -2,14 +2,13 @@ package com.holotube.stream
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.holotube.R
 import com.holotube.databinding.FragmentStreamBinding
@@ -25,9 +24,16 @@ class StreamFragment : Fragment() {
         requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility =
             View.GONE
 
+        if (requireActivity().resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            requireActivity().findViewById<MaterialToolbar>(R.id.main_toolbar).visibility = View.GONE
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                requireActivity().window.decorView.windowInsetsController?.hide(WindowInsets.Type.statusBars())
+            }
+
+        }
+
         val channel = requireArguments().getParcelable<Channel>("channel")!!
         binding.channel = channel
-
         binding.streamPlayer.initialize(YoutubeStreamListener(channel.videoKey))
         lifecycle.addObserver(binding.streamPlayer)
 
@@ -36,17 +42,22 @@ class StreamFragment : Fragment() {
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStop() {
+        super.onStop()
         requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility =
             View.VISIBLE
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            requireActivity().window.decorView.windowInsetsController?.show(WindowInsets.Type.statusBars())
+        }
+        requireActivity().findViewById<MaterialToolbar>(R.id.main_toolbar).visibility = View.VISIBLE
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun initializeChat(binding: FragmentStreamBinding) {
         binding.streamChat.settings.javaScriptEnabled = true
         binding.streamChat.setInitialScale(180)
-        binding.streamChat.settings.textZoom = 160
+        binding.streamChat.settings.textZoom = 200
+
         if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK) && isDarkThemeOn()) {
             when (isDarkThemeOn()) {
                 true -> WebSettingsCompat.setForceDark(
@@ -65,7 +76,6 @@ class StreamFragment : Fragment() {
 
     private fun isDarkThemeOn(): Boolean {
         return resources.configuration.uiMode and
-                Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES
+                Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
     }
-
 }
