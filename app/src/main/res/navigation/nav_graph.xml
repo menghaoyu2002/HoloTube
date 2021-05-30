@@ -12,5 +12,14 @@
     <fragment
         android:id="@+id/liveFragment"
         android:name="com.holotube.live.LiveFragment"
-        android:label="LiveFragment" />
+        android:label="LiveFragment" >
+        <action
+            android:id="@+id/action_liveFragment_to_streamFragment"
+            app:destination="@id/streamFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/streamFragment"
+        android:name="com.holotube.stream.StreamFragment"
+        android:label="fragment_stream"
+        tools:layout="@layout/fragment_stream" />
 </navigation>

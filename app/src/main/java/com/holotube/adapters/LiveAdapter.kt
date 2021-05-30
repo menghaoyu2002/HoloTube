@@ -5,15 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.holotube.databinding.ChannelListItemBinding
+import com.holotube.databinding.LiveListItemBinding
 import com.holotube.network.Channel
 
-class ChannelAdapter :
-    ListAdapter<Channel, ChannelAdapter.ViewHolder>(ChannelDiffCallback) {
+class LiveAdapter(private val onClickListener: OnClickListener) :
+    ListAdapter<Channel, LiveAdapter.ViewHolder>(ChannelDiffCallback) {
 
     class ViewHolder(
         private var binding:
-        ChannelListItemBinding
+        LiveListItemBinding
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(channel: Channel) {
@@ -24,14 +24,18 @@ class ChannelAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            ChannelListItemBinding.inflate(
+            LiveListItemBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
         )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val item = getItem(position)
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(item)
+        }
+        holder.bind(item)
     }
 
     companion object ChannelDiffCallback : DiffUtil.ItemCallback<Channel>() {
@@ -42,6 +46,10 @@ class ChannelAdapter :
         override fun areContentsTheSame(oldItem: Channel, newItem: Channel): Boolean {
             return oldItem == newItem
         }
+    }
+
+    class OnClickListener(val clickListener: (channel: Channel) -> Unit) {
+        fun onClick(channel: Channel) = clickListener(channel)
     }
 }
 

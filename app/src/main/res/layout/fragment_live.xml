@@ -26,7 +26,7 @@
                 android:layout_height="match_parent"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:listDataLive="@{viewModel.channels.live}"
-                tools:listitem="@layout/channel_list_item" />
+                tools:listitem="@layout/live_list_item" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

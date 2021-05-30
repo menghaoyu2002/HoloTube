@@ -6,22 +6,21 @@ import com.holotube.network.Channel
 import com.holotube.network.ChannelList
 import com.holotube.network.HoloApi
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 enum class HoloApiStatus { LOADING, ERROR, DONE }
 
 class ChannelViewModel : ViewModel() {
     private val _channels = MutableLiveData<ChannelList>()
-
     val channels: LiveData<ChannelList>
         get() = _channels
 
     private val _status = MutableLiveData<HoloApiStatus>()
-
     val status: LiveData<HoloApiStatus>
         get() = _status
+
+    private val _navigateToStream = MutableLiveData<Channel>()
+    val navigateToStream: LiveData<Channel>
+        get() = _navigateToStream
 
     fun getAllChannels() {
         _status.value = HoloApiStatus.LOADING
@@ -34,6 +33,14 @@ class ChannelViewModel : ViewModel() {
                 _status.value = HoloApiStatus.ERROR
             }
         }
+    }
+
+    fun viewStream(channel: Channel) {
+        _navigateToStream.value = channel
+    }
+
+    fun finishedStream() {
+        _navigateToStream.value = null
     }
 
 }

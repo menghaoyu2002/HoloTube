@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
-import com.holotube.adapters.ChannelAdapter
+import androidx.navigation.fragment.findNavController
+import com.holotube.R
+import com.holotube.adapters.LiveAdapter
 import com.holotube.databinding.FragmentLiveBinding
 
 class LiveFragment : Fragment() {
@@ -19,19 +19,32 @@ class LiveFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentLiveBinding.inflate(inflater)
 
-
         binding.lifecycleOwner = this
-        binding.liveList.adapter = ChannelAdapter()
         binding.viewModel = viewModel
 
         binding.swipeLayout.setOnRefreshListener {
             viewModel.getAllChannels()
-            binding.liveList.invalidate()
+            binding.root.invalidate()
             binding.swipeLayout.isRefreshing = false
         }
+
+        binding.liveList.adapter = LiveAdapter(LiveAdapter.OnClickListener {
+            viewModel.viewStream(it)
+        })
+
+        viewModel.navigateToStream.observe(viewLifecycleOwner, {
+            if (null != it) {
+                val bundle = Bundle()
+                bundle.putParcelable("channel", it)
+                this.findNavController()
+                    .navigate(R.id.action_liveFragment_to_streamFragment, bundle)
+                viewModel.finishedStream()
+            }
+        })
+
 
         return binding.root
     }

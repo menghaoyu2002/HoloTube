@@ -3,35 +3,27 @@ package com.holotube.bindings
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.RequiresApi
-import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.android.material.timepicker.TimeFormat
 import com.google.gson.internal.bind.util.ISO8601Utils
 import com.holotube.R
-import com.holotube.adapters.ChannelAdapter
+import com.holotube.adapters.LiveAdapter
 import com.holotube.adapters.UpcomingAdapter
 import com.holotube.live.HoloApiStatus
 import com.holotube.network.Channel
 import com.holotube.util.CardViewUtils
 import java.text.ParsePosition
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.math.abs
-import kotlin.math.round
 
 @BindingAdapter("listDataLive")
 fun bindLiveRecyclerView(recyclerView: RecyclerView, data: List<Channel>?) {
-    val adapter = recyclerView.adapter as ChannelAdapter
+    val adapter = recyclerView.adapter as LiveAdapter
     adapter.submitList(data)
 }
 

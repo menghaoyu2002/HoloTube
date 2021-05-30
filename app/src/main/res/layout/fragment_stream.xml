@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="channel"
+            type="com.holotube.network.Channel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/stream_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".stream.StreamFragment"
+        android:background="@color/backgroundColor">
+
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/stream_player"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:enableAutomaticInitialization="false"
+            app:enableLiveVideoUi="true"
+            app:showYouTubeButton="false" />
+
+        <WebView
+            android:id="@+id/stream_chat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+</layout>
