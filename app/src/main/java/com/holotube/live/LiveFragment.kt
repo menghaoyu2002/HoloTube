@@ -14,7 +14,7 @@ import com.holotube.databinding.FragmentLiveBinding
 class LiveFragment : Fragment() {
 
     private val viewModel by activityViewModels<ChannelViewModel>()
-    lateinit var binding: FragmentLiveBinding
+    private lateinit var binding: FragmentLiveBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
