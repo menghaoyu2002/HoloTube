@@ -1,6 +1,8 @@
 package com.holotube.bindings
 
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.util.Log
 import android.view.View
@@ -25,6 +27,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.math.abs
+import kotlin.math.round
 
 @BindingAdapter("listDataLive")
 fun bindLiveRecyclerView(recyclerView: RecyclerView, data: List<Channel>?) {
@@ -42,6 +45,7 @@ fun bindUpcomingRecyclerView(recyclerView: RecyclerView, data: List<Channel>?) {
 fun bindImage(imgView: ImageView, imgUrl: String) {
     Glide.with(imgView.context)
         .load(imgUrl)
+        .placeholder(ColorDrawable(Color.BLACK))
         .error(
             Glide.with(imgView.context)
                 .load(imgUrl.subSequence(0, imgUrl.length - 17) as String + "hqdefault.jpg")
@@ -50,31 +54,31 @@ fun bindImage(imgView: ImageView, imgUrl: String) {
 }
 
 @BindingAdapter("startTime")
-fun bindStartTime(textView: TextView, startTime: String) {
-    var timeDifference = CardViewUtils.getTimeDifference(startTime)
+fun bindStartTime(textView: TextView, startTime: String?) {
+    var timeDifference = if (startTime != null) CardViewUtils.getTimeDifference(startTime) else 0.0
+    val reformattedTimeDifference: Int
     var unit: String
 
     if (abs(timeDifference) < 1) {
         unit = textView.context.getString(R.string.minutes)
         timeDifference *= 60
+        reformattedTimeDifference = timeDifference.toInt()
     } else {
+        reformattedTimeDifference = timeDifference.toInt()
         unit = textView.context.getString(R.string.hours)
     }
 
-    if (abs(timeDifference) != 1.toLong()) {
+    if (abs(reformattedTimeDifference) != 1) {
         unit += "s"
     }
 
-    val displayId: Int = if (timeDifference < 1) {
-        R.string.stream_start_time_diff
-    } else {
-        R.string.upcoming_time_diff
-    }
+    val displayId: Int =
+        if (timeDifference <= 0) R.string.stream_start_time_diff else R.string.upcoming_time_diff
 
     textView.text =
         textView.context.getString(
             displayId,
-            abs(timeDifference).toString(),
+            abs(reformattedTimeDifference).toString(),
             unit
         )
 }
@@ -82,13 +86,9 @@ fun bindStartTime(textView: TextView, startTime: String) {
 @BindingAdapter("scheduledStart")
 fun bindScheduledStart(textView: TextView, scheduledTime: String) {
     val date = ISO8601Utils.parse(scheduledTime, ParsePosition(0))
-    if (CardViewUtils.getTimeDifference(scheduledTime) > 24) {
-        val reformattedDate =
-            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date.time)
-        textView.text = textView.context.getString(R.string.scheduledStart, reformattedDate)
-    } else {
-        bindStartTime(textView, scheduledTime)
-    }
+    val reformattedDate =
+        SimpleDateFormat("yyyy-MM-dd 'at' HH:MM", Locale.getDefault()).format(date.time)
+    textView.text = textView.context.getString(R.string.scheduledStart, reformattedDate)
 }
 
 @BindingAdapter("viewCount")

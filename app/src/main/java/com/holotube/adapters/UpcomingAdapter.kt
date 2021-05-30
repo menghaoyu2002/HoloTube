@@ -24,7 +24,7 @@ class UpcomingAdapter : ListAdapter<Channel, UpcomingAdapter.ViewHolder>(Channel
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             UpcomingListItemBinding.inflate(
-                LayoutInflater.from(parent.context)
+                LayoutInflater.from(parent.context), parent, false
             )
         )
     }

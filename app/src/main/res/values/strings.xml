@@ -7,5 +7,7 @@
     <string name="hours">hour</string>
     <string name="minutes">minute</string>
     <string name="viewCount">%1$s Watching\t - \t</string>
-    <string name="scheduledStart"> Scheduled for %1$s</string>
+    <string name="scheduledStart"> Scheduled for %1$s\t - \t</string>
+    <string name="menuLiveLabel">Live</string>
+    <string name="menuUpcomingLabel">Upcoming</string>
 </resources>

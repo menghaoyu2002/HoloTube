@@ -38,7 +38,9 @@
         <TextView
             android:id="@+id/stream_title"
             style="@style/cardViewTextStyle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
             android:text="@{channel.streamTitle}"
             android:textColor="@color/mainTextColor"
             android:textSize="16sp"
@@ -54,6 +56,9 @@
         <TextView
             android:id="@+id/channel_name"
             style="@style/cardViewTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
             android:text="@{channel.channelName}"
             android:textColor="@color/secondaryTextColor"
             android:textSize="14sp"
@@ -67,7 +72,10 @@
         <TextView
             android:id="@+id/view_count"
             style="@style/cardViewTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:fontFamily="@font/roboto"
             android:paddingBottom="10sp"
             android:textColor="@color/secondaryTextColor"
             android:textSize="12sp"
@@ -93,6 +101,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
             android:textColor="@color/secondaryTextColor"
             android:textSize="12sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/view_count"
@@ -107,7 +116,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="448dp" />
+            app:layout_constraintGuide_begin="@dimen/landscape_guideline_pos" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
