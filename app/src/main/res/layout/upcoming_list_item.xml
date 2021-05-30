@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="channel"
+            type="com.holotube.network.Channel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/backgroundColor">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/profile_picture_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            app:cardCornerRadius="250dp"
+            app:layout_constraintStart_toStartOf="@+id/thumbnail"
+            app:layout_constraintTop_toBottomOf="@id/thumbnail">
+
+            <ImageView
+                android:id="@+id/profile_picture"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:contentDescription="@string/channel_profile_picture_description"
+                app:imageUrl="@{channel.profilePictureUrl}"
+                tools:src="@mipmap/profilepic" />
+        </androidx.cardview.widget.CardView>
+
+
+        <TextView
+            android:id="@+id/stream_title"
+            style="@style/cardViewTextStyle"
+            android:fontFamily="@font/roboto_bold"
+            android:text="@{channel.streamTitle}"
+            android:textColor="@color/mainTextColor"
+            android:textSize="16sp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toTopOf="@+id/channel_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/profile_picture_container"
+            app:layout_constraintTop_toBottomOf="@id/thumbnail"
+            tools:text="Sample Stream Title" />
+
+        <TextView
+            android:id="@+id/channel_name"
+            style="@style/cardViewTextStyle"
+            android:fontFamily="@font/roboto"
+            android:text="@{channel.channelName}"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="14sp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/profile_picture_container"
+            app:layout_constraintTop_toBottomOf="@id/stream_title"
+            tools:text="Sample Channel Name" />
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/video_thumbnail_description"
+            android:paddingBottom="5sp"
+            app:imageUrl="@{channel.streamThumbnail}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@mipmap/maxresdefault" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:paddingBottom="10sp"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/channel_name"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/channel_name"
+            app:layout_constraintTop_toBottomOf="@+id/channel_name"
+            app:scheduledStart="@{channel.scheduledStart}"
+            tools:text="Scheduled for yyyy-MM-dd\t - \t" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="12sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="@+id/channel_name"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:startTime="@{channel.scheduledStart}"
+            tools:text="Started XXXX Hours Ago" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
