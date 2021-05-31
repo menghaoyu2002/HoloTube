@@ -1,12 +1,19 @@
 package com.holotube.stream
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.res.Configuration
+import android.content.res.Resources
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.view.*
+import android.util.DisplayMetrics
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowInsets
 import android.widget.ImageView
+import android.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
@@ -26,6 +33,8 @@ class StreamFragment : Fragment() {
         requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility =
             View.GONE
         val channel = requireArguments().getParcelable<Channel>("channel")!!
+        val actionBar = requireActivity().findViewById<MaterialToolbar>(R.id.main_toolbar)
+        actionBar.title = channel.channelName
 
         binding.streamPlayer.initialize(YoutubeStreamListener(channel.videoKey))
         lifecycle.addObserver(binding.streamPlayer)
@@ -42,12 +51,16 @@ class StreamFragment : Fragment() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             requireActivity().window.decorView.windowInsetsController?.show(WindowInsets.Type.statusBars())
         }
-        requireActivity().findViewById<MaterialToolbar>(R.id.main_toolbar).visibility = View.VISIBLE
+        val actionBar = requireActivity().findViewById<MaterialToolbar>(R.id.main_toolbar)
+        actionBar.visibility = View.VISIBLE
+        actionBar.title = resources.getString(R.string.app_name)
+        actionBar.navigationIcon = null
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun initializeChat(binding: FragmentStreamBinding, channel: Channel) {
         binding.streamChat.settings.javaScriptEnabled = true
+
         binding.streamChat.setInitialScale(180)
         binding.streamChat.settings.textZoom = 200
 
@@ -83,7 +96,8 @@ class StreamFragment : Fragment() {
             val chatIcon = ImageView(context)
             chatIcon.setImageResource(R.mipmap.chat_icon)
             chatIcon.setColorFilter(Color.argb(255, 255, 255, 255))
-            chatIcon.layoutParams = ViewGroup.LayoutParams(80, 80)
+            val size = resources.getDimension(R.dimen.chat_icon_size).toInt()
+            chatIcon.layoutParams = ViewGroup.LayoutParams(size, size)
             chatIcon.setOnClickListener {
                 if (binding.streamChat.visibility == View.VISIBLE) {
                     binding.streamChat.visibility = View.GONE

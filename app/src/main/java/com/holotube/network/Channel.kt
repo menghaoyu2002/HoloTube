@@ -29,8 +29,7 @@ data class Channel(
         parcel.readString(),
         parcel.readString(),
         mapOf()
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(videoKey)
