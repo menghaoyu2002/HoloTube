@@ -2,8 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/liveFragment"
-        android:title="@string/menuLiveLabel" />
+        android:title="@string/menuLiveLabel"
+        android:icon="@mipmap/live_icon"/>
     <item
         android:id="@+id/upcomingFragment"
-        android:title="@string/menuUpcomingLabel"/>
+        android:title="@string/menuUpcomingLabel"
+        android:icon="@mipmap/upcoming_icon"/>
+    <item
+        android:id="@+id/followingFragment"
+        android:title="@string/following"
+        android:icon="@mipmap/following_icon"/>
 </menu>

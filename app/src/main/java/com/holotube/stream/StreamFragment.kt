@@ -24,17 +24,12 @@ class StreamFragment : Fragment() {
         requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility =
             View.GONE
 
-        if (requireActivity().resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            requireActivity().findViewById<MaterialToolbar>(R.id.main_toolbar).visibility = View.GONE
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                requireActivity().window.decorView.windowInsetsController?.hide(WindowInsets.Type.statusBars())
-            }
-
-        }
+        initializeLandscape()
 
         val channel = requireArguments().getParcelable<Channel>("channel")!!
         binding.channel = channel
         binding.streamPlayer.initialize(YoutubeStreamListener(channel.videoKey))
+        binding.streamPlayer.addFullScreenListener(StreamFullScreenListener(binding))
         lifecycle.addObserver(binding.streamPlayer)
 
         initializeChat(binding)
@@ -42,8 +37,8 @@ class StreamFragment : Fragment() {
         return binding.root
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
+        super.onDestroy()
         requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility =
             View.VISIBLE
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -77,5 +72,16 @@ class StreamFragment : Fragment() {
     private fun isDarkThemeOn(): Boolean {
         return resources.configuration.uiMode and
                 Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+    }
+
+    private fun initializeLandscape() {
+        if (requireActivity().resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            requireActivity().findViewById<MaterialToolbar>(R.id.main_toolbar).visibility =
+                View.GONE
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                requireActivity().window.decorView.windowInsetsController?.hide(WindowInsets.Type.statusBars())
+            }
+
+        }
     }
 }

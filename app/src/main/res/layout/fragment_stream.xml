@@ -26,8 +26,7 @@
             android:theme="@style/NoActionBar"
             app:enableAutomaticInitialization="false"
             app:enableLiveVideoUi="true"
-            app:showYouTubeButton="false"
-            app:showFullScreenButton="false"/>
+            app:showYouTubeButton="false" />
 
         <WebView
             android:id="@+id/stream_chat"

@@ -14,6 +14,8 @@
         app:layout_anchor="@+id/nav_host_fragment"
         app:layout_anchorGravity="top|center"
         app:title="@string/app_name"
+        app:navigationIcon="@mipmap/play_icon"
+        app:navigationIconTint="?colorOnPrimary"
         app:titleTextColor="?colorOnPrimary" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

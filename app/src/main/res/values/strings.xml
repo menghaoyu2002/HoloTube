@@ -10,4 +10,5 @@
     <string name="scheduledStart"> Scheduled for %1$s\t - \t</string>
     <string name="menuLiveLabel">Live</string>
     <string name="menuUpcomingLabel">Upcoming</string>
+    <string name="following">Following</string>
 </resources>
