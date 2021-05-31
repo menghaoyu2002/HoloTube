@@ -1,6 +1,7 @@
 package com.holotube.stream
 
 import android.view.View
+import android.view.ViewGroup
 import com.holotube.databinding.FragmentStreamBinding
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
@@ -14,13 +15,3 @@ class YoutubeStreamListener(private val videoId: String) : AbstractYouTubePlayer
     }
 }
 
-class StreamFullScreenListener(private val binding: FragmentStreamBinding) : YouTubePlayerFullScreenListener {
-
-    override fun onYouTubePlayerEnterFullScreen() {
-        binding.streamChat.visibility = View.GONE
-    }
-
-    override fun onYouTubePlayerExitFullScreen() {
-        binding.streamChat.visibility = View.VISIBLE
-    }
-}

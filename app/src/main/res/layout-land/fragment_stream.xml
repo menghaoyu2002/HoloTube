@@ -1,46 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/stream_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="horizontal"
+    android:theme="@style/NoActionBar"
+    tools:context=".stream.StreamFragment">
 
-    <data>
-
-        <variable
-            name="channel"
-            type="com.holotube.network.Channel" />
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/stream_container"
-        android:layout_width="match_parent"
+    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+        android:id="@+id/stream_player"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:background="@color/backgroundColor"
-        android:orientation="horizontal"
         android:theme="@style/NoActionBar"
-        tools:context=".stream.StreamFragment">
+        app:enableAutomaticInitialization="false"
+        app:enableLiveVideoUi="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/stream_chat"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:showFullScreenButton="false"
+        app:showYouTubeButton="false" />
 
-        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-            android:id="@+id/stream_player"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:theme="@style/NoActionBar"
-            app:enableAutomaticInitialization="false"
-            app:enableLiveVideoUi="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/stream_chat"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:showYouTubeButton="false" />
+    <WebView
+        android:id="@+id/stream_chat"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <WebView
-            android:id="@+id/stream_chat"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>

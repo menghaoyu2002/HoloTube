@@ -2,9 +2,11 @@ package com.holotube.stream
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.*
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
@@ -23,16 +25,12 @@ class StreamFragment : Fragment() {
         val binding = FragmentStreamBinding.inflate(inflater)
         requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility =
             View.GONE
-
-        initializeLandscape()
-
         val channel = requireArguments().getParcelable<Channel>("channel")!!
-        binding.channel = channel
-        binding.streamPlayer.initialize(YoutubeStreamListener(channel.videoKey))
-        binding.streamPlayer.addFullScreenListener(StreamFullScreenListener(binding))
-        lifecycle.addObserver(binding.streamPlayer)
 
-        initializeChat(binding)
+        binding.streamPlayer.initialize(YoutubeStreamListener(channel.videoKey))
+        lifecycle.addObserver(binding.streamPlayer)
+        initializeLandscape(binding)
+        initializeChat(binding, channel)
 
         return binding.root
     }
@@ -48,7 +46,7 @@ class StreamFragment : Fragment() {
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    private fun initializeChat(binding: FragmentStreamBinding) {
+    private fun initializeChat(binding: FragmentStreamBinding, channel: Channel) {
         binding.streamChat.settings.javaScriptEnabled = true
         binding.streamChat.setInitialScale(180)
         binding.streamChat.settings.textZoom = 200
@@ -66,7 +64,7 @@ class StreamFragment : Fragment() {
             }
         }
 
-        binding.streamChat.loadUrl(binding.channel!!.streamChat)
+        binding.streamChat.loadUrl(channel.streamChat)
     }
 
     private fun isDarkThemeOn(): Boolean {
@@ -74,13 +72,26 @@ class StreamFragment : Fragment() {
                 Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
     }
 
-    private fun initializeLandscape() {
+    private fun initializeLandscape(binding: FragmentStreamBinding) {
         if (requireActivity().resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             requireActivity().findViewById<MaterialToolbar>(R.id.main_toolbar).visibility =
                 View.GONE
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 requireActivity().window.decorView.windowInsetsController?.hide(WindowInsets.Type.statusBars())
             }
+
+            val chatIcon = ImageView(context)
+            chatIcon.setImageResource(R.mipmap.chat_icon)
+            chatIcon.setColorFilter(Color.argb(255, 255, 255, 255))
+            chatIcon.layoutParams = ViewGroup.LayoutParams(80, 80)
+            chatIcon.setOnClickListener {
+                if (binding.streamChat.visibility == View.VISIBLE) {
+                    binding.streamChat.visibility = View.GONE
+                } else {
+                    binding.streamChat.visibility = View.VISIBLE
+                }
+            }
+            binding.streamPlayer.getPlayerUiController().addView(chatIcon)
 
         }
     }

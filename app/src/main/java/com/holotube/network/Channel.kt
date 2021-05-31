@@ -6,7 +6,8 @@ import com.squareup.moshi.Json
 
 data class ChannelList(
     val live: List<Channel>,
-    val upcoming: List<Channel>)
+    val upcoming: List<Channel>
+)
 
 data class Channel(
     @Json(name = "yt_video_key") val videoKey: String,

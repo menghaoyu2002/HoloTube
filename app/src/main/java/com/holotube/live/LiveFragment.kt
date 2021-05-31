@@ -52,5 +52,6 @@ class LiveFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         viewModel.getAllChannels()
+        viewModel.channels
     }
 }

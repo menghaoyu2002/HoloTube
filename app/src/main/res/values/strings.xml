@@ -11,4 +11,5 @@
     <string name="menuLiveLabel">Live</string>
     <string name="menuUpcomingLabel">Upcoming</string>
     <string name="following">Following</string>
+    <string name="play_pause_button_description">The play pause button</string>
 </resources>
