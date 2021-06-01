@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.appbar.MaterialToolbar
+import com.holotube.R
 import com.holotube.adapters.UpcomingAdapter
 import com.holotube.databinding.FragmentUpcomingBinding
 import com.holotube.live.ChannelViewModel
@@ -22,11 +24,12 @@ class UpcomingFragment : Fragment() {
     ): View? {
         val binding = FragmentUpcomingBinding.inflate(inflater)
 
+        val actionBar = requireActivity().findViewById<MaterialToolbar>(R.id.main_toolbar)
+        actionBar.title = resources.getString(R.string.menuUpcomingLabel)
+
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         binding.upcomingList.adapter = UpcomingAdapter()
-        binding.upcomingList.adapter?.stateRestorationPolicy =
-            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
 
         binding.swipeLayout.setOnRefreshListener {
             viewModel.getAllChannels()

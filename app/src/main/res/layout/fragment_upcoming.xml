@@ -9,6 +9,9 @@
             name="viewModel"
             type="com.holotube.live.ChannelViewModel" />
     </data>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_layout"
@@ -23,4 +26,6 @@
             app:listDataUpcoming="@{viewModel.channels.upcoming}"
             tools:listitem="@layout/upcoming_list_item" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    </FrameLayout>
 </layout>

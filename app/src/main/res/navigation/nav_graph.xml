@@ -22,4 +22,9 @@
         android:name="com.holotube.stream.StreamFragment"
         android:label="fragment_stream"
         tools:layout="@layout/fragment_stream" />
+    <fragment
+        android:id="@+id/followingFragment"
+        android:name="com.holotube.following.FollowingFragment"
+        android:label="fragment_following"
+        tools:layout="@layout/fragment_following" />
 </navigation>

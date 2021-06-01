@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -101,20 +102,14 @@ fun bindViewCount(textView: TextView, viewCount: String?) {
 
 @BindingAdapter("HoloApiStatus")
 fun bindStatus(
-    textView: TextView,
+    layout: LinearLayout,
     status: HoloApiStatus?
 ) {
     when (status) {
         HoloApiStatus.ERROR -> {
-            textView.visibility = View.VISIBLE
-            textView.text = "Error: No Connection"
-        }
-        HoloApiStatus.LOADING -> {
-            textView.visibility = View.VISIBLE
-            textView.text = "Loading..."
-        }
-        HoloApiStatus.DONE -> {
-            textView.visibility = View.GONE
+            layout.visibility = View.VISIBLE
+        } else -> {
+            layout.visibility = View.GONE
         }
 
     }
