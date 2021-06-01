@@ -56,6 +56,7 @@ class LiveFragment : Fragment() {
             if (null != it) {
                 val bundle = Bundle()
                 bundle.putParcelable("channel", it)
+                binding.liveList.smoothScrollToPosition(0)
                 this.findNavController()
                     .navigate(R.id.action_liveFragment_to_streamFragment, bundle)
                 viewModel.finishedStream()

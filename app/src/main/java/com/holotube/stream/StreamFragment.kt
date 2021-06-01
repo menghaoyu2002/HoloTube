@@ -17,6 +17,7 @@ import android.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.holotube.R
@@ -35,6 +36,7 @@ class StreamFragment : Fragment() {
         val channel = requireArguments().getParcelable<Channel>("channel")!!
         val actionBar = requireActivity().findViewById<MaterialToolbar>(R.id.main_toolbar)
         actionBar.title = channel.channelName
+        requireActivity().findViewById<AppBarLayout>(R.id.appBar).setExpanded(true)
 
         binding.streamPlayer.initialize(YoutubeStreamListener(channel.videoKey))
         lifecycle.addObserver(binding.streamPlayer)
