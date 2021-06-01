@@ -15,7 +15,7 @@ data class Channel(
     @Json(name = "live_schedule") val scheduledStart: String,
     @Json(name = "live_start") val startTime: String?,
     @Json(name = "live_viewers") val viewCount: String?,
-    private val channelJson: Map<String, String>,
+    @Json(name = "channel") private val channelJson: Map<String, String>,
 ) : Parcelable {
     val channelName: String = channelJson["name"] as String
     val profilePictureUrl: String = channelJson["photo"] as String

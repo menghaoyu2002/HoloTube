@@ -1,6 +1,5 @@
 package com.holotube.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -9,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.holotube.databinding.UpcomingListItemBinding
 import com.holotube.network.Channel
 
-class UpcomingAdapter : ListAdapter<Channel, UpcomingAdapter.ViewHolder>(ChannelDiffCallback) {
+class UpcomingAdapter(private val onLongClickListener: OnLongClickListener) :
+    ListAdapter<Channel, UpcomingAdapter.ViewHolder>(ChannelDiffCallback) {
     class ViewHolder(
         private var binding:
         UpcomingListItemBinding
@@ -30,7 +30,12 @@ class UpcomingAdapter : ListAdapter<Channel, UpcomingAdapter.ViewHolder>(Channel
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val item = getItem(position)
+        holder.itemView.setOnLongClickListener {
+            onLongClickListener.onClick(item)
+            true
+        }
+        holder.bind(item)
     }
 
     companion object ChannelDiffCallback : DiffUtil.ItemCallback<Channel>() {
@@ -41,5 +46,9 @@ class UpcomingAdapter : ListAdapter<Channel, UpcomingAdapter.ViewHolder>(Channel
         override fun areContentsTheSame(oldItem: Channel, newItem: Channel): Boolean {
             return oldItem == newItem
         }
+    }
+
+    class OnLongClickListener(val clickListener: (channel: Channel) -> Unit) {
+        fun onClick(channel: Channel) = clickListener(channel)
     }
 }

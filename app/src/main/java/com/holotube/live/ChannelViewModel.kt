@@ -1,15 +1,20 @@
 package com.holotube.live
 
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.holotube.database.ChannelDao
+import com.holotube.database.ChannelEntity
 import com.holotube.network.Channel
 import com.holotube.network.ChannelList
 import com.holotube.network.HoloApi
 import kotlinx.coroutines.launch
 
-enum class HoloApiStatus {LOADING, DONE, ERROR}
+enum class HoloApiStatus { LOADING, DONE, ERROR }
 
-class ChannelViewModel : ViewModel() {
+class ChannelViewModel(database: ChannelDao) : ViewModel() {
     private val _channels = MutableLiveData<ChannelList>()
     val channels: LiveData<ChannelList>
         get() = _channels
@@ -21,6 +26,12 @@ class ChannelViewModel : ViewModel() {
     private val _status = MutableLiveData<HoloApiStatus>()
     val status: LiveData<HoloApiStatus>
         get() = _status
+
+    private val dataSource = database
+
+    private val _followed = database.getAllFollowing()
+    val followed: LiveData<List<ChannelEntity>>
+        get() = _followed
 
     fun getAllChannels() {
         _status.value = HoloApiStatus.LOADING
@@ -48,4 +59,33 @@ class ChannelViewModel : ViewModel() {
         _channels.value!!.live = _channels.value!!.live.sortedByDescending { it.startTime }
         _channels.value!!.upcoming = _channels.value!!.upcoming.sortedBy { it.scheduledStart }
     }
+
+    fun follow(channel: Channel) {
+        viewModelScope.launch {
+            dataSource.follow(ChannelEntity(channel.channelName, channel.profilePictureUrl))
+        }
+    }
+
+    fun unfollow(channel: Channel) {
+        viewModelScope.launch {
+            dataSource.unfollow(channel.channelName)
+        }
+    }
+
+    fun isFollowed(channel: Channel): Boolean {
+        if (followed.value != null) {
+            for (element in followed.value!!) {
+                if (element.channelName == channel.channelName) {
+                    return true
+                }
+            }
+        } else {
+            return false
+        }
+        return false
+    }
+
+fun getLiveChannelByName(channelName: String): Channel? {
+    return channels.value!!.live.find { it.channelName == channelName }
+}
 }

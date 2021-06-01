@@ -1,12 +1,13 @@
 package com.holotube.upcoming
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
 import com.holotube.R
 import com.holotube.adapters.UpcomingAdapter
@@ -29,7 +30,15 @@ class UpcomingFragment : Fragment() {
 
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-        binding.upcomingList.adapter = UpcomingAdapter()
+        binding.upcomingList.adapter = UpcomingAdapter(UpcomingAdapter.OnLongClickListener {
+            if (viewModel.isFollowed(it)) {
+                viewModel.unfollow(it)
+                Toast.makeText(context, "Unfollowed", Toast.LENGTH_SHORT).show()
+            } else {
+                viewModel.follow(it)
+                Toast.makeText(context, "Followed", Toast.LENGTH_SHORT).show()
+            }
+        })
 
         binding.swipeLayout.setOnRefreshListener {
             viewModel.getAllChannels()

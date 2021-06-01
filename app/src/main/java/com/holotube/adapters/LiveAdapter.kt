@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.holotube.databinding.LiveListItemBinding
 import com.holotube.network.Channel
 
-class LiveAdapter(private val onClickListener: OnClickListener) :
+class LiveAdapter(private val onClickListener: OnClickListener, private val onLongClickListener: OnLongClickListener) :
     ListAdapter<Channel, LiveAdapter.ViewHolder>(ChannelDiffCallback) {
 
     class ViewHolder(
@@ -35,6 +35,10 @@ class LiveAdapter(private val onClickListener: OnClickListener) :
         holder.itemView.setOnClickListener {
             onClickListener.onClick(item)
         }
+        holder.itemView.setOnLongClickListener {
+            onLongClickListener.onClick(item)
+            true
+        }
         holder.bind(item)
     }
 
@@ -49,6 +53,10 @@ class LiveAdapter(private val onClickListener: OnClickListener) :
     }
 
     class OnClickListener(val clickListener: (channel: Channel) -> Unit) {
+        fun onClick(channel: Channel) = clickListener(channel)
+    }
+
+    class OnLongClickListener(val clickListener: (channel: Channel) -> Unit) {
         fun onClick(channel: Channel) = clickListener(channel)
     }
 }

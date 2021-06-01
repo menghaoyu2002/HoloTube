@@ -1,21 +1,27 @@
 package com.holotube.live
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.appbar.MaterialToolbar
 import com.holotube.R
 import com.holotube.adapters.LiveAdapter
+import com.holotube.database.FollowingDatabase
 import com.holotube.databinding.FragmentLiveBinding
 
 class LiveFragment : Fragment() {
 
-    private val viewModel by activityViewModels<ChannelViewModel>()
+    private val viewModel by activityViewModels<ChannelViewModel> {
+        ChannelViewModelFactory(
+            FollowingDatabase.getInstance(requireContext().applicationContext).channelDao
+        )
+    }
+
     private lateinit var binding: FragmentLiveBinding
 
     override fun onCreateView(
@@ -35,9 +41,18 @@ class LiveFragment : Fragment() {
             binding.swipeLayout.isRefreshing = false
         }
 
-        binding.liveList.adapter = LiveAdapter(LiveAdapter.OnClickListener {
-            viewModel.viewStream(it)
-        })
+        binding.liveList.adapter = LiveAdapter(
+            LiveAdapter.OnClickListener { viewModel.viewStream(it) },
+            LiveAdapter.OnLongClickListener {
+                if (viewModel.isFollowed(it)) {
+                    viewModel.unfollow(it)
+                    Toast.makeText(context, "Unfollowed", Toast.LENGTH_SHORT).show()
+                } else {
+                    viewModel.follow(it)
+                    Toast.makeText(context, "Followed", Toast.LENGTH_SHORT).show()
+                }
+            }
+        )
 
         viewModel.navigateToStream.observe(viewLifecycleOwner, {
             if (null != it) {
@@ -48,6 +63,8 @@ class LiveFragment : Fragment() {
                 viewModel.finishedStream()
             }
         })
+
+
 
         return binding.root
     }

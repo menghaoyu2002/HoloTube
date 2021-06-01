@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.gson.internal.bind.util.ISO8601Utils
 import com.holotube.R
+import com.holotube.adapters.FollowingAdapter
 import com.holotube.adapters.LiveAdapter
 import com.holotube.adapters.UpcomingAdapter
+import com.holotube.database.ChannelEntity
 import com.holotube.live.HoloApiStatus
 import com.holotube.network.Channel
 import com.holotube.util.CardViewUtils
@@ -31,6 +33,12 @@ fun bindLiveRecyclerView(recyclerView: RecyclerView, data: List<Channel>?) {
 @BindingAdapter("listDataUpcoming")
 fun bindUpcomingRecyclerView(recyclerView: RecyclerView, data: List<Channel>?) {
     val adapter = recyclerView.adapter as UpcomingAdapter
+    adapter.submitList(data)
+}
+
+@BindingAdapter("listDataFollowed")
+fun bindFollowingRecyclerView(recyclerView: RecyclerView, data: List<ChannelEntity>?) {
+    val adapter = recyclerView.adapter as FollowingAdapter
     adapter.submitList(data)
 }
 
