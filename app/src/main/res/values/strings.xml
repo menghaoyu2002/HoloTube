@@ -6,14 +6,12 @@
     <string name="upcoming_time_diff"> Live in %1$s %2$s </string>
     <string name="hours">hour</string>
     <string name="minutes">minute</string>
-    <string name="viewCount">%1$s Watching\t - \t</string>
+    <string name="viewCount">%1$s Watching\t\t\t</string>
     <string name="scheduledStart"> Scheduled for %1$s\t - \t</string>
     <string name="menuLiveLabel">Live</string>
     <string name="menuUpcomingLabel">Upcoming</string>
     <string name="following">Following</string>
     <string name="play_pause_button_description">The play pause button</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="top_appbar_menu_filter">Filter</string>
     <string name="no_connection">No Connection</string>
     <string name="follow_button">Follow \n %1$s</string>

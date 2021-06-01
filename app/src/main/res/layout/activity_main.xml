@@ -29,7 +29,6 @@
                 app:navigationIconTint="?colorOnPrimary"
                 app:titleTextColor="?colorOnPrimary" />
 
-
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.fragment.app.FragmentContainerView

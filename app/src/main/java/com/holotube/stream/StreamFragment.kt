@@ -14,7 +14,10 @@ import android.view.ViewGroup
 import android.view.WindowInsets
 import android.widget.ImageView
 import android.widget.Toolbar
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.view.marginLeft
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
 import com.google.android.material.appbar.AppBarLayout
@@ -34,14 +37,19 @@ class StreamFragment : Fragment() {
         requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility =
             View.GONE
         val channel = requireArguments().getParcelable<Channel>("channel")!!
+        binding.channel = channel
         val actionBar = requireActivity().findViewById<MaterialToolbar>(R.id.main_toolbar)
         actionBar.title = channel.channelName
-        requireActivity().findViewById<AppBarLayout>(R.id.appBar).setExpanded(true)
+        actionBar.navigationIcon =
+            AppCompatResources.getDrawable(requireContext(), R.mipmap.back_arrow_icon)
+        actionBar.setNavigationOnClickListener { findNavController().popBackStack() }
 
+        requireActivity().findViewById<AppBarLayout>(R.id.appBar).setExpanded(true)
         binding.streamPlayer.initialize(YoutubeStreamListener(channel.videoKey))
         lifecycle.addObserver(binding.streamPlayer)
+        initializeStreamPlayerButtons(binding)
         initializeLandscape(binding)
-        initializeChat(binding, channel)
+        initializeChat(binding)
 
         return binding.root
     }
@@ -60,7 +68,7 @@ class StreamFragment : Fragment() {
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    private fun initializeChat(binding: FragmentStreamBinding, channel: Channel) {
+    private fun initializeChat(binding: FragmentStreamBinding) {
         binding.streamChat.settings.javaScriptEnabled = true
 
         binding.streamChat.setInitialScale(180)
@@ -79,7 +87,7 @@ class StreamFragment : Fragment() {
             }
         }
 
-        binding.streamChat.loadUrl(channel.streamChat)
+        binding.streamChat.loadUrl(binding.channel!!.streamChat)
     }
 
     private fun isDarkThemeOn(): Boolean {
@@ -95,20 +103,40 @@ class StreamFragment : Fragment() {
                 requireActivity().window.decorView.windowInsetsController?.hide(WindowInsets.Type.statusBars())
             }
 
-            val chatIcon = ImageView(context)
-            chatIcon.setImageResource(R.mipmap.chat_icon)
-            chatIcon.setColorFilter(Color.argb(255, 255, 255, 255))
-            val size = resources.getDimension(R.dimen.chat_icon_size).toInt()
-            chatIcon.layoutParams = ViewGroup.LayoutParams(size, size)
-            chatIcon.setOnClickListener {
-                if (binding.streamChat.visibility == View.VISIBLE) {
-                    binding.streamChat.visibility = View.GONE
-                } else {
-                    binding.streamChat.visibility = View.VISIBLE
-                }
-            }
-            binding.streamPlayer.getPlayerUiController().addView(chatIcon)
 
         }
+    }
+
+    private fun initializeStreamPlayerButtons(binding: FragmentStreamBinding) {
+        val size = resources.getDimension(R.dimen.chat_icon_size).toInt()
+        val white = Color.argb(255, 255, 255, 255)
+
+        val infoIcon = ImageView(context)
+        infoIcon.setImageResource(R.mipmap.info_icon)
+        infoIcon.setColorFilter(white)
+        infoIcon.layoutParams = ViewGroup.LayoutParams(size, size)
+        infoIcon.setOnClickListener {
+            if (binding.infoCard.visibility == View.VISIBLE) {
+                binding.infoCard.visibility = View.GONE
+            } else {
+                binding.infoCard.visibility = View.VISIBLE
+            }
+        }
+
+        val chatIcon = ImageView(context)
+        chatIcon.setImageResource(R.mipmap.chat_icon)
+        chatIcon.setColorFilter(white)
+        chatIcon.layoutParams = ViewGroup.LayoutParams(size, size)
+        chatIcon.setOnClickListener {
+            if (binding.streamChat.visibility == View.VISIBLE) {
+                binding.streamChat.visibility = View.GONE
+            } else {
+                binding.streamChat.visibility = View.VISIBLE
+            }
+        }
+
+        binding.streamPlayer.getPlayerUiController().addView(infoIcon)
+        binding.streamPlayer.getPlayerUiController().addView(chatIcon)
+
     }
 }
