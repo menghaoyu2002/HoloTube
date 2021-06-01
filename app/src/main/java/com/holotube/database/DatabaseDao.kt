@@ -9,13 +9,13 @@ import androidx.room.Update
 @Dao
 interface ChannelDao {
     @Insert
-    suspend fun follow(channel: ChannelEntity)
+    fun follow(channel: ChannelEntity)
 
     @Query("SELECT * FROM following_table WHERE channelName = :channelName")
-    suspend fun get(channelName: String): ChannelEntity?
+    fun get(channelName: String): ChannelEntity?
 
     @Query("DELETE FROM following_table WHERE channelName = :channelName")
-    suspend fun unfollow(channelName: String)
+    fun unfollow(channelName: String)
 
     @Query("SELECT * FROM following_table ORDER BY channelName")
     fun getAllFollowing(): LiveData<List<ChannelEntity>>

@@ -46,10 +46,10 @@ class LiveFragment : Fragment() {
             LiveAdapter.OnLongClickListener {
                 if (viewModel.isFollowed(it)) {
                     viewModel.unfollow(it)
-                    Toast.makeText(context, "Unfollowed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Unfollowed ${it.channelName}", Toast.LENGTH_SHORT).show()
                 } else {
                     viewModel.follow(it)
-                    Toast.makeText(context, "Followed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Followed ${it.channelName}", Toast.LENGTH_SHORT).show()
                 }
             }
         )

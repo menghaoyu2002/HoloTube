@@ -61,31 +61,18 @@ class ChannelViewModel(database: ChannelDao) : ViewModel() {
     }
 
     fun follow(channel: Channel) {
-        viewModelScope.launch {
-            dataSource.follow(ChannelEntity(channel.channelName, channel.profilePictureUrl))
-        }
+        dataSource.follow(ChannelEntity(channel.channelName, channel.profilePictureUrl))
     }
 
     fun unfollow(channel: Channel) {
-        viewModelScope.launch {
-            dataSource.unfollow(channel.channelName)
-        }
+        dataSource.unfollow(channel.channelName)
     }
 
     fun isFollowed(channel: Channel): Boolean {
-        if (followed.value != null) {
-            for (element in followed.value!!) {
-                if (element.channelName == channel.channelName) {
-                    return true
-                }
-            }
-        } else {
-            return false
-        }
-        return false
+        return dataSource.get(channel.channelName) != null
     }
 
-fun getLiveChannelByName(channelName: String): Channel? {
-    return channels.value!!.live.find { it.channelName == channelName }
-}
+    fun getLiveChannelByName(channelName: String): Channel? {
+        return channels.value!!.live.find { it.channelName == channelName }
+    }
 }

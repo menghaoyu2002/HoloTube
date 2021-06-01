@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.appbar.MaterialToolbar
 import com.holotube.R
 import com.holotube.adapters.UpcomingAdapter
@@ -33,10 +34,10 @@ class UpcomingFragment : Fragment() {
         binding.upcomingList.adapter = UpcomingAdapter(UpcomingAdapter.OnLongClickListener {
             if (viewModel.isFollowed(it)) {
                 viewModel.unfollow(it)
-                Toast.makeText(context, "Unfollowed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Unfollowed ${it.channelName}", Toast.LENGTH_SHORT).show()
             } else {
                 viewModel.follow(it)
-                Toast.makeText(context, "Followed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Followed ${it.channelName}", Toast.LENGTH_SHORT).show()
             }
         })
 
