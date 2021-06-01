@@ -64,8 +64,8 @@ class ChannelViewModel(database: ChannelDao) : ViewModel() {
         dataSource.follow(ChannelEntity(channel.channelName, channel.profilePictureUrl))
     }
 
-    fun unfollow(channel: Channel) {
-        dataSource.unfollow(channel.channelName)
+    fun unfollow(channelName: String) {
+        dataSource.unfollow(channelName)
     }
 
     fun isFollowed(channel: Channel): Boolean {
@@ -73,6 +73,6 @@ class ChannelViewModel(database: ChannelDao) : ViewModel() {
     }
 
     fun getLiveChannelByName(channelName: String): Channel? {
-        return channels.value!!.live.find { it.channelName == channelName }
+        return channels.value?.live?.find { it.channelName == channelName }
     }
 }

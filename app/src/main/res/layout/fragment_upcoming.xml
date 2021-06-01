@@ -9,23 +9,62 @@
             name="viewModel"
             type="com.holotube.live.ChannelViewModel" />
     </data>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/upcoming_list"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/upcoming_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:listDataUpcoming="@{viewModel.channels.upcoming}"
+                tools:listitem="@layout/upcoming_list_item" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/channel_profile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:listDataUpcoming="@{viewModel.channels.upcoming}"
-            tools:listitem="@layout/upcoming_list_item" />
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            android:background="#99000000"
+            android:visibility="gone">
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/channel_profile_picture"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        tools:src="@mipmap/profilepic" />
+
+                    <Button
+                        android:id="@+id/follow_unfollow_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/backgroundColor"
+                        android:fontFamily="@font/roboto_medium"
+                        tools:text="Follow/Unfollow \n Channel Name?" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 </layout>

@@ -16,4 +16,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="top_appbar_menu_filter">Filter</string>
     <string name="no_connection">No Connection</string>
+    <string name="follow_button">Follow \n %1$s</string>
+    <string name="unfollow_button">Unfollow \n %1$s</string>
+    <string name="unfollow">Unfollow?</string>
 </resources>

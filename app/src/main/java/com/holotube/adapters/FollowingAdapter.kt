@@ -9,7 +9,7 @@ import com.holotube.database.ChannelEntity
 import com.holotube.databinding.FollowingListItemBinding
 
 
-class FollowingAdapter(private val onClickListener: OnClickListener) :
+class FollowingAdapter(private val onLongClickListener: OnLongClickListener) :
     ListAdapter<ChannelEntity, FollowingAdapter.ViewHolder>(ChannelDiffCallback) {
 
     class ViewHolder(
@@ -33,8 +33,9 @@ class FollowingAdapter(private val onClickListener: OnClickListener) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.itemView.setOnClickListener {
-            onClickListener.onClick(item)
+        holder.itemView.setOnLongClickListener {
+            onLongClickListener.onClick(item)
+            true
         }
         holder.bind(item)
     }
@@ -49,7 +50,7 @@ class FollowingAdapter(private val onClickListener: OnClickListener) :
         }
     }
 
-    class OnClickListener(val clickListener: (channel: ChannelEntity) -> Unit) {
+    class OnLongClickListener(val clickListener: (channel: ChannelEntity) -> Unit) {
         fun onClick(channel: ChannelEntity) = clickListener(channel)
     }
 }
