@@ -47,11 +47,11 @@
         app:labelVisibilityMode="labeled"
         app:layout_anchor="@+id/nav_host_fragment"
         app:layout_anchorGravity="bottom|center"
+        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu"
-        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"/>
+        app:menu="@menu/bottom_navigation_menu" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

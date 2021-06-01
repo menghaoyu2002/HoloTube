@@ -26,5 +26,9 @@
         android:id="@+id/followingFragment"
         android:name="com.holotube.following.FollowingFragment"
         android:label="fragment_following"
-        tools:layout="@layout/fragment_following" />
+        tools:layout="@layout/fragment_following" >
+        <action
+            android:id="@+id/action_followingFragment_to_streamFragment"
+            app:destination="@id/streamFragment" />
+    </fragment>
 </navigation>

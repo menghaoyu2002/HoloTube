@@ -2,4 +2,5 @@
 <resources>
     <dimen name="landscape_guideline_pos">434dp</dimen>
     <dimen name="chat_icon_size">32dp</dimen>
+    <dimen name="toolbar_height">60dp</dimen>
 </resources>

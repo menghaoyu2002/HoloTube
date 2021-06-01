@@ -13,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.holotube.R
 import com.holotube.adapters.UpcomingAdapter
 import com.holotube.databinding.FragmentLiveBinding
@@ -50,6 +51,7 @@ class UpcomingFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         viewModel.getAllChannels()
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).invalidate()
     }
 
     private fun showFollowMenu(
