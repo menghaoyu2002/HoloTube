@@ -3,9 +3,9 @@
 A project focused on implementing a better user interface for youtube live streams and making it easier to follow Hololive talents for Android 19+.
 
 <div style="display: inline-block">
-<img src="https://i.imgur.com/TgX78k8.png" alt="live_image" width="33%" /> 
-<img src="https://i.imgur.com/Y9pqjna.png" alt="upcoming_image" width="33%"/>
- <img src="https://i.imgur.com/yzphKen.png" alt="following_image" width="33%"/>
+<img src="https://i.imgur.com/TgX78k8.png" alt="live_image" width="32%" /> 
+<img src="https://i.imgur.com/Y9pqjna.png" alt="upcoming_image" width="32%"/>
+ <img src="https://i.imgur.com/yzphKen.png" alt="following_image" width="32%"/>
 </div>
 
 ## Motivation
