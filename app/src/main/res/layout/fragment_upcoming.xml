@@ -65,6 +65,66 @@
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/sort_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background_dim"
+            android:visibility="gone">
+
+            <RadioGroup
+                android:id="@+id/sort_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/backgroundColor"
+                android:orientation="vertical"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="@string/sort_by"
+                    android:textSize="15sp" />
+
+                <RadioButton
+                    android:id="@+id/A_TO_Z"
+                    style="@style/sortMenuStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/a_to_z" />
+
+                <RadioButton
+                    android:id="@+id/Z_TO_A"
+                    style="@style/sortMenuStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/z_to_a" />
+
+                <RadioButton
+                    android:id="@+id/START_TIME_LOW_TO_HIGH"
+                    style="@style/sortMenuStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/starting_soon" />
+
+                <RadioButton
+                    android:id="@+id/START_TIME_HIGH_TO_LOW"
+                    style="@style/sortMenuStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/furthest_start" />
+            </RadioGroup>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </FrameLayout>
 </layout>

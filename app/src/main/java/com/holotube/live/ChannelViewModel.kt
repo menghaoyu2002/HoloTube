@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.RecyclerView
 import com.holotube.database.ChannelDao
 import com.holotube.database.ChannelEntity
 import com.holotube.network.Channel
@@ -42,12 +43,17 @@ class ChannelViewModel(database: ChannelDao) : ViewModel() {
     val followed: LiveData<List<ChannelEntity>>
         get() = _followed
 
-    fun getAllChannels(channelFilter: ChannelFilters, channelStatus: String) {
+    fun getAllChannels(channelFilter: ChannelFilters? = null, channelStatus: String? = null) {
         _status.value = HoloApiStatus.LOADING
         viewModelScope.launch {
             try {
                 _channels.value = HoloApi.retrofitService.getChannelList()
-                sort(channelFilter, channelStatus)
+                if (channelFilter != null && channelStatus != null) {
+                    sort(channelFilter, channelStatus)
+                } else {
+                    sort(ChannelFilters.A_TO_Z, "Live")
+                    sort(ChannelFilters.START_TIME_LOW_TO_HIGH, "Upcoming")
+                }
                 _status.value = HoloApiStatus.DONE
             } catch (e: Exception) {
                 Log.e("Response", "Failed $e.message")

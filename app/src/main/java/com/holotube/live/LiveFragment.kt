@@ -37,6 +37,7 @@ class LiveFragment : Fragment() {
     ): View {
         binding = FragmentLiveBinding.inflate(inflater)
         binding.fragment = this
+
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         binding.sortMenu.setOnClickListener { binding.sortMenu.visibility = View.GONE }
@@ -67,7 +68,6 @@ class LiveFragment : Fragment() {
             if (null != it) {
                 val bundle = Bundle()
                 bundle.putParcelable("channel", it)
-                binding.liveList.smoothScrollToPosition(0)
                 this.findNavController()
                     .navigate(R.id.action_liveFragment_to_streamFragment, bundle)
                 viewModel.finishedStream()
@@ -79,7 +79,7 @@ class LiveFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.getAllChannels(channelFilter, "Live")
+        viewModel.getAllChannels()
     }
 
     private fun showFollowMenu(

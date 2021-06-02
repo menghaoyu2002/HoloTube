@@ -38,6 +38,7 @@ class StreamFragment : Fragment() {
         actionBar.navigationIcon =
             AppCompatResources.getDrawable(requireContext(), R.mipmap.back_arrow_icon)
         actionBar.setNavigationOnClickListener { findNavController().popBackStack() }
+        actionBar.menu.getItem(0).isVisible = false
 
         requireActivity().findViewById<AppBarLayout>(R.id.appBar).setExpanded(true)
         binding.streamPlayer.initialize(YoutubeStreamListener(channel.videoKey))
@@ -58,8 +59,9 @@ class StreamFragment : Fragment() {
         }
         val actionBar = requireActivity().findViewById<MaterialToolbar>(R.id.main_toolbar)
         actionBar.visibility = View.VISIBLE
-        actionBar.title = resources.getString(R.string.app_name)
         actionBar.navigationIcon = null
+        actionBar.menu.getItem(0).isVisible = true
+
     }
 
     @SuppressLint("SetJavaScriptEnabled")
