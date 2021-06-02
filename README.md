@@ -1,1 +1,1 @@
-# HoloTube - Youtube Live Player for Hololive
+# HoloTube - Improved Youtube Live Player for Hololive
