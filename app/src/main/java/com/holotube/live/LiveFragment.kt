@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.MaterialToolbar
 import com.holotube.R
 import com.holotube.adapters.LiveAdapter
@@ -37,16 +38,17 @@ class LiveFragment : Fragment() {
     ): View {
         binding = FragmentLiveBinding.inflate(inflater)
         binding.fragment = this
-
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         binding.sortMenu.setOnClickListener { binding.sortMenu.visibility = View.GONE }
+        requireActivity().findViewById<AppBarLayout>(R.id.appBar).setExpanded(true)
         val actionBar = requireActivity().findViewById<MaterialToolbar>(R.id.main_toolbar)
         actionBar.title = resources.getString(R.string.menuLiveLabel)
         actionBar.menu[0].setOnMenuItemClickListener {
             binding.sortMenu.visibility = View.VISIBLE
             true
         }
+        actionBar.setOnClickListener { binding.liveList.smoothScrollToPosition(0) }
 
         binding.swipeLayout.setOnRefreshListener {
             viewModel.getAllChannels(channelFilter, "Live")
@@ -121,44 +123,24 @@ class LiveFragment : Fragment() {
     private fun onSortSelected(checkedId: Int) {
         when (checkedId) {
             R.id.A_TO_Z -> {
-                viewModel.sort(ChannelFilters.A_TO_Z, "Live")
                 channelFilter = ChannelFilters.A_TO_Z
             }
             R.id.Z_TO_A -> {
-                viewModel.sort(ChannelFilters.Z_TO_A, "Live")
                 channelFilter = ChannelFilters.Z_TO_A
             }
             R.id.VIEWCOUNT_LOW_TO_HIGH -> {
-                viewModel.sort(
-                    ChannelFilters.VIEWCOUNT_LOW_TO_HIGH,
-                    "Live"
-                )
                 ChannelFilters.VIEWCOUNT_LOW_TO_HIGH
             }
             R.id.VIEWCOUNT_HIGH_TO_LOW -> {
-                viewModel.sort(
-                    ChannelFilters.VIEWCOUNT_HIGH_TO_LOW,
-                    "Live"
-                )
                 channelFilter = ChannelFilters.VIEWCOUNT_HIGH_TO_LOW
             }
             R.id.START_TIME_LOW_TO_HIGH -> {
-                viewModel.sort(
-                    ChannelFilters.START_TIME_LOW_TO_HIGH,
-                    "Live"
-                )
                 channelFilter = ChannelFilters.START_TIME_LOW_TO_HIGH
             }
             R.id.START_TIME_HIGH_TO_LOW -> {
-                viewModel.sort(
-                    ChannelFilters.START_TIME_HIGH_TO_LOW,
-                    "Live"
-                )
                 channelFilter = ChannelFilters.START_TIME_HIGH_TO_LOW
             }
         }
-
-        binding.viewModel = viewModel
-        binding.liveList.smoothScrollToPosition(-10)
+        viewModel.getAllChannels(channelFilter, "Live")
     }
 }

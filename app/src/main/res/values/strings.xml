@@ -15,7 +15,7 @@
     <string name="no_connection">No Connection</string>
     <string name="follow_button">Follow \n %1$s</string>
     <string name="unfollow_button">Unfollow \n %1$s</string>
-    <string name="unfollow">Unfollow?</string>
+    <string name="unfollow">Unfollow</string>
     <string name="sort_by">Sort By</string>
     <string name="a_to_z">A to Z</string>
     <string name="z_to_a">Z to A</string>

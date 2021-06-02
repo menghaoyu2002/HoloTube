@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.widget.RecyclerView
 import com.holotube.database.ChannelDao
 import com.holotube.database.ChannelEntity
 import com.holotube.network.Channel
@@ -43,14 +42,21 @@ class ChannelViewModel(database: ChannelDao) : ViewModel() {
     val followed: LiveData<List<ChannelEntity>>
         get() = _followed
 
-    fun getAllChannels(channelFilter: ChannelFilters? = null, channelStatus: String? = null) {
+    fun getAllChannels(
+        channelFilter: ChannelFilters? = null,
+        channelStatus: String? = null,
+    ) {
         _status.value = HoloApiStatus.LOADING
         viewModelScope.launch {
             try {
                 _channels.value = HoloApi.retrofitService.getChannelList()
                 if (channelFilter != null && channelStatus != null) {
+                    when (channelStatus) {
+                        "Live" -> sort(ChannelFilters.START_TIME_LOW_TO_HIGH, "Upcoming")
+                        "Upcoming" -> sort(ChannelFilters.A_TO_Z, "Live")
+                    }
                     sort(channelFilter, channelStatus)
-                } else {
+                } else if (channelFilter == null && channelStatus == null) {
                     sort(ChannelFilters.A_TO_Z, "Live")
                     sort(ChannelFilters.START_TIME_LOW_TO_HIGH, "Upcoming")
                 }
@@ -86,7 +92,7 @@ class ChannelViewModel(database: ChannelDao) : ViewModel() {
         return channels.value?.live?.find { it.channelName == channelName }
     }
 
-    fun sort(channelFilter: ChannelFilters, channelStatus: String) {
+    private fun sort(channelFilter: ChannelFilters, channelStatus: String) {
         if (_channels.value == null) return
         if (channelStatus == "Live") {
             when (channelFilter) {
@@ -94,7 +100,6 @@ class ChannelViewModel(database: ChannelDao) : ViewModel() {
                     _channels.value!!.live =
                         _channels.value!!.live.sortedBy { it.channelName }
                 }
-
                 ChannelFilters.Z_TO_A -> _channels.value!!.live =
                     _channels.value!!.live.sortedByDescending { it.channelName }
 

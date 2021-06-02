@@ -11,6 +11,7 @@ import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.MaterialToolbar
 import com.holotube.R
 import com.holotube.adapters.UpcomingAdapter
@@ -34,6 +35,8 @@ class UpcomingFragment : Fragment() {
 
         val actionBar = requireActivity().findViewById<MaterialToolbar>(R.id.main_toolbar)
         actionBar.title = resources.getString(R.string.menuUpcomingLabel)
+        actionBar.setOnClickListener { binding.upcomingList.smoothScrollToPosition(0) }
+        requireActivity().findViewById<AppBarLayout>(R.id.appBar).setExpanded(true)
 
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
@@ -48,8 +51,8 @@ class UpcomingFragment : Fragment() {
 
         binding.sortMenu.setOnClickListener { binding.sortMenu.visibility = View.GONE }
         actionBar.menu[0].setOnMenuItemClickListener {
-                binding.sortMenu.visibility = View.VISIBLE
-                true
+            binding.sortMenu.visibility = View.VISIBLE
+            true
         }
 
         binding.sortGroup.setOnCheckedChangeListener { _, checkedId ->
@@ -57,11 +60,6 @@ class UpcomingFragment : Fragment() {
         }
 
         return binding.root
-    }
-
-    override fun onStart() {
-        super.onStart()
-        viewModel.getAllChannels()
     }
 
     private fun showFollowMenu(
@@ -103,30 +101,19 @@ class UpcomingFragment : Fragment() {
     private fun onSortSelected(checkedId: Int) {
         when (checkedId) {
             R.id.A_TO_Z -> {
-                viewModel.sort(ChannelFilters.A_TO_Z, "Upcoming")
                 channelFilter = ChannelFilters.A_TO_Z
             }
             R.id.Z_TO_A -> {
-                viewModel.sort(ChannelFilters.Z_TO_A, "Upcoming")
                 channelFilter = ChannelFilters.Z_TO_A
             }
             R.id.START_TIME_LOW_TO_HIGH -> {
-                viewModel.sort(
-                    ChannelFilters.START_TIME_LOW_TO_HIGH,
-                    "Upcoming"
-                )
+
                 channelFilter = ChannelFilters.START_TIME_LOW_TO_HIGH
             }
             R.id.START_TIME_HIGH_TO_LOW -> {
-                viewModel.sort(
-                    ChannelFilters.START_TIME_HIGH_TO_LOW,
-                    "Upcoming"
-                )
                 channelFilter = ChannelFilters.START_TIME_HIGH_TO_LOW
             }
         }
-
-        binding.viewModel = viewModel
-        binding.upcomingList.smoothScrollToPosition(-10)
+        viewModel.getAllChannels(channelFilter, "Upcoming")
     }
 }

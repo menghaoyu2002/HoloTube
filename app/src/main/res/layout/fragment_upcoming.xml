@@ -67,6 +67,7 @@
             </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/sort_menu"
             android:layout_width="match_parent"
@@ -114,6 +115,7 @@
                     style="@style/sortMenuStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="true"
                     android:text="@string/starting_soon" />
 
                 <RadioButton

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -28,13 +29,15 @@ class FollowingFragment : Fragment() {
         binding.lifecycleOwner = this
         val actionBar = requireActivity().findViewById<MaterialToolbar>(R.id.main_toolbar)
         actionBar.title = resources.getString(R.string.following)
+        actionBar.setOnClickListener { binding.followingList.smoothScrollToPosition(0) }
+        actionBar.menu[0].isVisible = false
 
         binding.followingList.adapter = FollowingAdapter(
             FollowingAdapter.OnClickListener {
                 when (val channel = viewModel.getLiveChannelByName(it.channelName)) {
                     null -> Toast.makeText(
                         context,
-                        "Sorry, This Stream is Offline",
+                        "Sorry, this stream is offline",
                         Toast.LENGTH_SHORT
                     ).show()
                     else -> viewModel.viewStream(channel)
@@ -62,6 +65,11 @@ class FollowingFragment : Fragment() {
         })
 
         return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        requireActivity().findViewById<MaterialToolbar>(R.id.main_toolbar).menu[0].isVisible = true
     }
 
     private fun showUnfollowButton(
