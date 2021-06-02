@@ -27,7 +27,8 @@
                 app:layout_anchorGravity="top|center"
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:navigationIconTint="?colorOnPrimary"
-                app:titleTextColor="?colorOnPrimary" />
+                app:titleTextColor="?colorOnPrimary"
+                app:menu="@menu/top_appbar_menu"/>
 
         </com.google.android.material.appbar.AppBarLayout>
 

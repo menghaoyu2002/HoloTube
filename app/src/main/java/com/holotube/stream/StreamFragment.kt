@@ -1,21 +1,16 @@
 package com.holotube.stream
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.res.Configuration
-import android.content.res.Resources
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.widget.ImageView
-import android.widget.Toolbar
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.view.marginLeft
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.webkit.WebSettingsCompat

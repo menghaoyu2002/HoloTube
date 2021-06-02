@@ -2,9 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-
-        android:id="@+id/filter"
         android:title="@string/top_appbar_menu_filter"
-        android:icon="@mipmap/search_icon"
+        android:icon="@mipmap/filter_icon"
         app:showAsAction="always"/>
 </menu>

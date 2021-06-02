@@ -7,16 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.holotube.R
 import com.holotube.adapters.LiveAdapter
 import com.holotube.database.FollowingDatabase
 import com.holotube.databinding.FragmentLiveBinding
+
 
 class LiveFragment : Fragment() {
 
@@ -28,20 +29,26 @@ class LiveFragment : Fragment() {
 
     private lateinit var binding: FragmentLiveBinding
 
+    private var channelFilter = ChannelFilters.A_TO_Z
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLiveBinding.inflate(inflater)
-
-        binding.lifecycleOwner = this
+        binding.fragment = this
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+        binding.sortMenu.setOnClickListener { binding.sortMenu.visibility = View.GONE }
         val actionBar = requireActivity().findViewById<MaterialToolbar>(R.id.main_toolbar)
         actionBar.title = resources.getString(R.string.menuLiveLabel)
+        actionBar.menu[0].setOnMenuItemClickListener {
+            binding.sortMenu.visibility = View.VISIBLE
+            true
+        }
 
         binding.swipeLayout.setOnRefreshListener {
-            viewModel.getAllChannels()
-            binding.root.invalidate()
+            viewModel.getAllChannels(channelFilter, "Live")
             binding.swipeLayout.isRefreshing = false
         }
 
@@ -51,6 +58,10 @@ class LiveFragment : Fragment() {
                 showFollowMenu(binding, viewModel, it)
             }
         )
+
+        binding.sortGroup.setOnCheckedChangeListener { _, checkedId ->
+            onSortSelected(checkedId)
+        }
 
         viewModel.navigateToStream.observe(viewLifecycleOwner, {
             if (null != it) {
@@ -68,8 +79,7 @@ class LiveFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.getAllChannels()
-        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).invalidate()
+        viewModel.getAllChannels(channelFilter, "Live")
     }
 
     private fun showFollowMenu(
@@ -106,6 +116,49 @@ class LiveFragment : Fragment() {
                     .show()
             }
         }
+    }
 
+    private fun onSortSelected(checkedId: Int) {
+        when (checkedId) {
+            R.id.A_TO_Z -> {
+                viewModel.sort(ChannelFilters.A_TO_Z, "Live")
+                channelFilter = ChannelFilters.A_TO_Z
+            }
+            R.id.Z_TO_A -> {
+                viewModel.sort(ChannelFilters.Z_TO_A, "Live")
+                channelFilter = ChannelFilters.Z_TO_A
+            }
+            R.id.VIEWCOUNT_LOW_TO_HIGH -> {
+                viewModel.sort(
+                    ChannelFilters.VIEWCOUNT_LOW_TO_HIGH,
+                    "Live"
+                )
+                ChannelFilters.VIEWCOUNT_LOW_TO_HIGH
+            }
+            R.id.VIEWCOUNT_HIGH_TO_LOW -> {
+                viewModel.sort(
+                    ChannelFilters.VIEWCOUNT_HIGH_TO_LOW,
+                    "Live"
+                )
+                channelFilter = ChannelFilters.VIEWCOUNT_HIGH_TO_LOW
+            }
+            R.id.START_TIME_LOW_TO_HIGH -> {
+                viewModel.sort(
+                    ChannelFilters.START_TIME_LOW_TO_HIGH,
+                    "Live"
+                )
+                channelFilter = ChannelFilters.START_TIME_LOW_TO_HIGH
+            }
+            R.id.START_TIME_HIGH_TO_LOW -> {
+                viewModel.sort(
+                    ChannelFilters.START_TIME_HIGH_TO_LOW,
+                    "Live"
+                )
+                channelFilter = ChannelFilters.START_TIME_HIGH_TO_LOW
+            }
+        }
+
+        binding.viewModel = viewModel
+        binding.liveList.smoothScrollToPosition(-10)
     }
 }

@@ -11,10 +11,16 @@
     <string name="menuLiveLabel">Live</string>
     <string name="menuUpcomingLabel">Upcoming</string>
     <string name="following">Following</string>
-    <string name="play_pause_button_description">The play pause button</string>
     <string name="top_appbar_menu_filter">Filter</string>
     <string name="no_connection">No Connection</string>
     <string name="follow_button">Follow \n %1$s</string>
     <string name="unfollow_button">Unfollow \n %1$s</string>
     <string name="unfollow">Unfollow?</string>
+    <string name="sort_by">Sort By</string>
+    <string name="a_to_z">A to Z</string>
+    <string name="z_to_a">Z to A</string>
+    <string name="view_count_low_to_high">View Count (Low to High)</string>
+    <string name="view_count_high_to_low">View Count (High to Low)</string>
+    <string name="most_recent">Most Recent</string>
+    <string name="earliest_start_time">Earliest Start Time</string>
 </resources>

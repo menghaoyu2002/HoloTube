@@ -14,6 +14,15 @@ import kotlinx.coroutines.launch
 
 enum class HoloApiStatus { LOADING, DONE, ERROR }
 
+enum class ChannelFilters {
+    A_TO_Z,
+    Z_TO_A,
+    VIEWCOUNT_HIGH_TO_LOW,
+    VIEWCOUNT_LOW_TO_HIGH,
+    START_TIME_LOW_TO_HIGH,
+    START_TIME_HIGH_TO_LOW
+}
+
 class ChannelViewModel(database: ChannelDao) : ViewModel() {
     private val _channels = MutableLiveData<ChannelList>()
     val channels: LiveData<ChannelList>
@@ -33,12 +42,12 @@ class ChannelViewModel(database: ChannelDao) : ViewModel() {
     val followed: LiveData<List<ChannelEntity>>
         get() = _followed
 
-    fun getAllChannels() {
+    fun getAllChannels(channelFilter: ChannelFilters, channelStatus: String) {
         _status.value = HoloApiStatus.LOADING
         viewModelScope.launch {
             try {
                 _channels.value = HoloApi.retrofitService.getChannelList()
-                initializeChannelList()
+                sort(channelFilter, channelStatus)
                 _status.value = HoloApiStatus.DONE
             } catch (e: Exception) {
                 Log.e("Response", "Failed $e.message")
@@ -55,11 +64,6 @@ class ChannelViewModel(database: ChannelDao) : ViewModel() {
         _navigateToStream.value = null
     }
 
-    private fun initializeChannelList() {
-        _channels.value!!.live = _channels.value!!.live.sortedByDescending { it.startTime }
-        _channels.value!!.upcoming = _channels.value!!.upcoming.sortedBy { it.scheduledStart }
-    }
-
     fun follow(channel: Channel) {
         dataSource.follow(ChannelEntity(channel.channelName, channel.profilePictureUrl))
     }
@@ -74,5 +78,47 @@ class ChannelViewModel(database: ChannelDao) : ViewModel() {
 
     fun getLiveChannelByName(channelName: String): Channel? {
         return channels.value?.live?.find { it.channelName == channelName }
+    }
+
+    fun sort(channelFilter: ChannelFilters, channelStatus: String) {
+        if (_channels.value == null) return
+        if (channelStatus == "Live") {
+            when (channelFilter) {
+                ChannelFilters.A_TO_Z -> {
+                    _channels.value!!.live =
+                        _channels.value!!.live.sortedBy { it.channelName }
+                }
+
+                ChannelFilters.Z_TO_A -> _channels.value!!.live =
+                    _channels.value!!.live.sortedByDescending { it.channelName }
+
+                ChannelFilters.VIEWCOUNT_HIGH_TO_LOW -> _channels.value!!.live =
+                    _channels.value!!.live.sortedByDescending { it.viewCount!!.toLong() }
+
+                ChannelFilters.VIEWCOUNT_LOW_TO_HIGH -> _channels.value!!.live =
+                    _channels.value!!.live.sortedBy { it.viewCount!!.toLong() }
+
+                ChannelFilters.START_TIME_LOW_TO_HIGH -> _channels.value!!.live =
+                    _channels.value!!.live.sortedByDescending { it.startTime }
+
+                ChannelFilters.START_TIME_HIGH_TO_LOW -> _channels.value!!.live =
+                    _channels.value!!.live.sortedBy { it.startTime }
+            }
+        } else {
+            when (channelFilter) {
+                ChannelFilters.A_TO_Z -> _channels.value!!.upcoming =
+                    _channels.value!!.upcoming.sortedBy { it.channelName }
+
+                ChannelFilters.Z_TO_A -> _channels.value!!.upcoming =
+                    _channels.value!!.upcoming.sortedByDescending { it.channelName }
+
+                ChannelFilters.START_TIME_LOW_TO_HIGH -> _channels.value!!.upcoming =
+                    _channels.value!!.upcoming.sortedBy { it.scheduledStart }
+
+                ChannelFilters.START_TIME_HIGH_TO_LOW -> _channels.value!!.upcoming =
+                    _channels.value!!.upcoming.sortedByDescending { it.scheduledStart }
+                else -> return
+            }
+        }
     }
 }

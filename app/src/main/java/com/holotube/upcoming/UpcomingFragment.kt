@@ -3,33 +3,34 @@ package com.holotube.upcoming
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.holotube.R
 import com.holotube.adapters.UpcomingAdapter
-import com.holotube.databinding.FragmentLiveBinding
 import com.holotube.databinding.FragmentUpcomingBinding
+import com.holotube.live.ChannelFilters
 import com.holotube.live.ChannelViewModel
 
 
 class UpcomingFragment : Fragment() {
 
     private val viewModel by activityViewModels<ChannelViewModel>()
+    private lateinit var binding: FragmentUpcomingBinding
+
+    private var channelFilter = ChannelFilters.START_TIME_LOW_TO_HIGH
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentUpcomingBinding.inflate(inflater)
+        binding = FragmentUpcomingBinding.inflate(inflater)
 
         val actionBar = requireActivity().findViewById<MaterialToolbar>(R.id.main_toolbar)
         actionBar.title = resources.getString(R.string.menuUpcomingLabel)
@@ -41,7 +42,7 @@ class UpcomingFragment : Fragment() {
         })
 
         binding.swipeLayout.setOnRefreshListener {
-            viewModel.getAllChannels()
+            viewModel.getAllChannels(channelFilter, "Upcoming")
             binding.swipeLayout.isRefreshing = false
         }
 
@@ -50,8 +51,8 @@ class UpcomingFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.getAllChannels()
-        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).invalidate()
+        viewModel.getAllChannels(channelFilter, "Upcoming")
+        binding.viewModel = viewModel
     }
 
     private fun showFollowMenu(

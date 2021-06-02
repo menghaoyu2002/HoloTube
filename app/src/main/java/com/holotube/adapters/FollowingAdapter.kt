@@ -1,6 +1,5 @@
 package com.holotube.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,7 @@ private const val LIVE_CHANNEL = 0
 private const val OFFLINE_CHANNEL = 1
 
 class FollowingAdapter(
-    private val onClickListener: FollowingAdapter.OnClickListener,
+    private val onClickListener: OnClickListener,
     private val onLongClickListener: OnLongClickListener,
     private val viewModel: ChannelViewModel
 ) :

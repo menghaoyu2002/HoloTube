@@ -1,11 +1,9 @@
 package com.holotube
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.navigation.findNavController
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.holotube.databinding.ActivityMainBinding
@@ -21,7 +19,5 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         findViewById<BottomNavigationView>(R.id.bottom_navigation)
             .setupWithNavController(navController)
-
-        setSupportActionBar(findViewById(R.id.main_toolbar))
     }
 }

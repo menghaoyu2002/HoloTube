@@ -16,14 +16,12 @@
         android:layout_height="match_parent"
         android:background="@color/black"
         android:orientation="vertical"
-        android:theme="@style/NoActionBar"
         tools:context=".stream.StreamFragment">
 
         <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
             android:id="@+id/stream_player"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:theme="@style/NoActionBar"
             app:enableAutomaticInitialization="false"
             app:enableLiveVideoUi="true"
             app:layout_constraintEnd_toEndOf="parent"

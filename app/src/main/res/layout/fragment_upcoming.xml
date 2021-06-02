@@ -32,7 +32,7 @@
             android:id="@+id/channel_profile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#99000000"
+            android:background="@color/background_dim"
             android:visibility="gone">
 
             <androidx.cardview.widget.CardView
