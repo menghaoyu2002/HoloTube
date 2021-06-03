@@ -55,3 +55,5 @@ This app implements an user interface heavily inspired by the [twitch app](https
 * [Moshi](https://github.com/square/moshi/) for parsing JSON data 
 * AndroidX and JetPack for ViewModels, Navigation, Room datbase, LiveData, etc...
 
+### Disclaimer
+This app has no affiliation with Hololive or its talents.
