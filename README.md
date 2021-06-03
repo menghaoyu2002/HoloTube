@@ -45,6 +45,7 @@ This app implements an user interface similar to the [twitch app](https://play.g
 * Clean up code and improve app efficiency by un-nesting viewgroups
 
 ## Open-source Libraries Used
+* [Android-Youtube-Player](https://github.com/PierfrancescoSoffritti/android-youtube-player) for displaying/playing the streams
 * [Glide](https://github.com/bumptech/glide) for displaying thumbnail and profile pictures
 * [HoloAPI](https://github.com/holofans/holoapi) a REST api for Hololive streamer data
 * [Retrofit2](https://github.com/square/retrofit) for requesting data from the REST api
