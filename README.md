@@ -41,6 +41,7 @@ This app implements an user interface similar to the [twitch app](https://play.g
 * Integrate youtube and youtube OAuth api
 * Use MVVM structure for app instead of viewmodel communicating directly with data
 * Add search functionality 
+* Currently database operations are running on the main thread. Since the operations are very quick this is fine, however and improvement would be to move these operations to a background thread and use async operations.
 
 ## Open-source Libraries Used
 * [Glide](https://github.com/bumptech/glide) for displaying thumbnail and profile pictures
