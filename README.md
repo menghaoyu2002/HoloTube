@@ -41,7 +41,7 @@ This app implements an user interface similar to the [twitch app](https://play.g
 * Integrate youtube and youtube OAuth api
 * Use MVVM structure for app instead of viewmodel communicating directly with data
 * Add search functionality 
-* Currently database operations are running on the main thread. Since the operations are very quick this is fine, however and improvement would be to move these operations to a background thread and use async operations
+* Currently database operations are running on the main thread. Since the operations are very quick this is fine, however an improvement would be to move these operations to a background thread and use async operations
 * Clean up code and improve app efficiency by un-nesting viewgroups
 
 ## Open-source Libraries Used
