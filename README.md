@@ -22,7 +22,7 @@ Notice how the chat and donations blocks half of the content. This purpose of th
 
 ## Implementation
 
-This app implements an user interface similar to the [twitch app](https://play.google.com/store/apps/details?id=tv.twitch.android.app&hl=en_CA&gl=US) for a better viewing experience.
+This app implements an user interface heavily inspired by the [twitch app](https://play.google.com/store/apps/details?id=tv.twitch.android.app&hl=en_CA&gl=US) for a better viewing experience.
 
 <div style="display: inline-block">
 <img src="https://i.imgur.com/JsZ6ZYZ.png" alt="app_live_screen" width="49%">
@@ -50,5 +50,5 @@ This app implements an user interface similar to the [twitch app](https://play.g
 * [HoloAPI](https://github.com/holofans/holoapi) a REST api for Hololive streamer data
 * [Retrofit2](https://github.com/square/retrofit) for requesting data from the REST api
 * [Moshi](https://github.com/square/moshi/) for parsing JSON data 
-* AndroidX and JetPack for ViewModels, Navigation, Room datbase, etc...
+* AndroidX and JetPack for ViewModels, Navigation, Room datbase, LiveData, etc...
 
