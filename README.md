@@ -1,6 +1,6 @@
 # HoloTube - Improved Youtube Live Player for Hololive
 
-A project focused on implementing a better user interface for youtube live streams and making it easier to follow Hololive talents for Android 19+.
+A project focused on implementing a better user interface for youtube live streams and making it easier to follow Hololive talents for Android API level 19+.
 
 <div style="display: inline-block">
 <img src="https://i.imgur.com/TgX78k8.png" alt="live_image" width="32%" /> 
