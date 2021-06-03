@@ -58,3 +58,7 @@ This app implements an user interface heavily inspired by the [twitch app](https
 
 ## Disclaimer
 This app has no affiliation with Hololive or its talents.
+
+## License
+
+[License](https://github.com/menghaoyu2002/HoloTube/blob/master/LICENSE)
