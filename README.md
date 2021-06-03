@@ -8,6 +8,9 @@ A project focused on implementing a better user interface for youtube live strea
  <img src="https://i.imgur.com/yzphKen.png" alt="following_image" width="32%"/>
 </div>
 
+## Download
+Head to the [Releases](https://github.com/menghaoyu2002/HoloTube/releases) page and download the most recent release. Run the apk file on your phone.
+
 ## Motivation
 
 The current Youtube live stream player has one major flaw. As of 6/2/2021, when the chat is turned on while in landscape mode it covers most of the screen. This can be seen in the following screenshots.
