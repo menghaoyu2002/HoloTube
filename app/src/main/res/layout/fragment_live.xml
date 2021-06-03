@@ -66,7 +66,8 @@
                         android:id="@+id/channel_profile_picture"
                         android:layout_width="200dp"
                         android:layout_height="200dp"
-                        tools:src="@mipmap/profilepic" />
+                        tools:src="@mipmap/profilepic"
+                        android:contentDescription="@string/channel_profile_picture_description" />
 
                     <Button
                         android:id="@+id/follow_unfollow_button"
@@ -98,7 +99,8 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:src="@mipmap/no_connection"
-                app:tint="@color/mainTextColor" />
+                app:tint="@color/mainTextColor"
+                android:contentDescription="@string/no_connection_description" />
 
             <TextView
                 android:layout_width="wrap_content"

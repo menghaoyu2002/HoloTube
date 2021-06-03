@@ -29,7 +29,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@mipmap/profilepic" />
+                tools:src="@mipmap/profilepic"
+                android:contentDescription="@string/channel_profile_picture_description" />
 
             <TextView
                 android:id="@+id/channel_name"
@@ -53,7 +54,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/profile_picture"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.781" />
+                app:layout_constraintVertical_bias="0.781"
+                android:contentDescription="@string/channel_is_live" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -30,7 +30,7 @@ class UpcomingFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentUpcomingBinding.inflate(inflater)
 
         val actionBar = requireActivity().findViewById<MaterialToolbar>(R.id.main_toolbar)
@@ -60,6 +60,11 @@ class UpcomingFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.getAllChannels()
     }
 
     private fun showFollowMenu(

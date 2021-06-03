@@ -44,7 +44,7 @@ class StreamFragment : Fragment() {
         binding.streamPlayer.initialize(YoutubeStreamListener(channel.videoKey))
         lifecycle.addObserver(binding.streamPlayer)
         initializeStreamPlayerButtons(binding)
-        initializeLandscape(binding)
+        initializeLandscape()
         initializeChat(binding)
 
         return binding.root
@@ -92,15 +92,13 @@ class StreamFragment : Fragment() {
                 Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
     }
 
-    private fun initializeLandscape(binding: FragmentStreamBinding) {
+    private fun initializeLandscape() {
         if (requireActivity().resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             requireActivity().findViewById<MaterialToolbar>(R.id.main_toolbar).visibility =
                 View.GONE
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 requireActivity().window.decorView.windowInsetsController?.hide(WindowInsets.Type.statusBars())
             }
-
-
         }
     }
 

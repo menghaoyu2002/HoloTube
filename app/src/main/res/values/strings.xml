@@ -25,4 +25,6 @@
     <string name="earliest_start_time">Longest Uptime</string>
     <string name="starting_soon">Starting Soon</string>
     <string name="furthest_start">Furthest Start</string>
+    <string name="channel_is_live">Channel is live</string>
+    <string name="no_connection_description">No connection</string>
 </resources>

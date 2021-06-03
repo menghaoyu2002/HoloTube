@@ -57,7 +57,8 @@
                     imageUrl="@{channel.profilePictureUrl}"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
-                    tools:src="@mipmap/profilepic" />
+                    tools:src="@mipmap/profilepic"
+                    android:contentDescription="@string/channel_profile_picture_description" />
 
             </androidx.cardview.widget.CardView>
 
