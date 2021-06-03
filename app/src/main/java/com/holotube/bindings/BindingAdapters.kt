@@ -93,8 +93,8 @@ fun bindScheduledStart(textView: TextView, scheduledTime: String) {
 }
 
 @BindingAdapter("viewCount")
-fun bindViewCount(textView: TextView, viewCount: String?) {
-    if (viewCount != null) {
+fun bindViewCount(textView: TextView, viewCount: String) {
+    if (viewCount !=  "0") {
         val reformattedViewCount = if (viewCount.toLong() > 1000) {
             (viewCount.toLong() / 1000).toString() + "K"
         } else {

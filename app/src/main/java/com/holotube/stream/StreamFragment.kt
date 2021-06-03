@@ -31,6 +31,7 @@ class StreamFragment : Fragment() {
         val binding = FragmentStreamBinding.inflate(inflater)
         requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility =
             View.GONE
+        initializeLandscape()
         val channel = requireArguments().getParcelable<Channel>("channel")!!
         binding.channel = channel
         val actionBar = requireActivity().findViewById<MaterialToolbar>(R.id.main_toolbar)
@@ -44,7 +45,6 @@ class StreamFragment : Fragment() {
         binding.streamPlayer.initialize(YoutubeStreamListener(channel.videoKey))
         lifecycle.addObserver(binding.streamPlayer)
         initializeStreamPlayerButtons(binding)
-        initializeLandscape()
         initializeChat(binding)
 
         return binding.root

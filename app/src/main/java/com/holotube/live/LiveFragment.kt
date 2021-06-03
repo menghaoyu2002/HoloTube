@@ -3,6 +3,7 @@ package com.holotube.live
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,7 +41,10 @@ class LiveFragment : Fragment() {
         binding.fragment = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        binding.sortMenu.setOnClickListener { binding.sortMenu.visibility = View.GONE }
+        binding.sortMenu.setOnClickListener {
+            binding.sortMenu.visibility = View.GONE
+            binding.liveList.smoothScrollToPosition(0)
+        }
         requireActivity().findViewById<AppBarLayout>(R.id.appBar).setExpanded(true)
         val actionBar = requireActivity().findViewById<MaterialToolbar>(R.id.main_toolbar)
         actionBar.title = resources.getString(R.string.menuLiveLabel)
@@ -129,7 +133,7 @@ class LiveFragment : Fragment() {
                 channelFilter = ChannelFilters.Z_TO_A
             }
             R.id.VIEWCOUNT_LOW_TO_HIGH -> {
-                ChannelFilters.VIEWCOUNT_LOW_TO_HIGH
+                channelFilter = ChannelFilters.VIEWCOUNT_LOW_TO_HIGH
             }
             R.id.VIEWCOUNT_HIGH_TO_LOW -> {
                 channelFilter = ChannelFilters.VIEWCOUNT_HIGH_TO_LOW

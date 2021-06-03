@@ -49,7 +49,10 @@ class UpcomingFragment : Fragment() {
             binding.swipeLayout.isRefreshing = false
         }
 
-        binding.sortMenu.setOnClickListener { binding.sortMenu.visibility = View.GONE }
+        binding.sortMenu.setOnClickListener {
+            binding.sortMenu.visibility = View.GONE
+            binding.upcomingList.smoothScrollToPosition(0)
+        }
         actionBar.menu[0].setOnMenuItemClickListener {
             binding.sortMenu.visibility = View.VISIBLE
             true
@@ -112,7 +115,6 @@ class UpcomingFragment : Fragment() {
                 channelFilter = ChannelFilters.Z_TO_A
             }
             R.id.START_TIME_LOW_TO_HIGH -> {
-
                 channelFilter = ChannelFilters.START_TIME_LOW_TO_HIGH
             }
             R.id.START_TIME_HIGH_TO_LOW -> {

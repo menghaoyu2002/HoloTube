@@ -14,13 +14,14 @@ data class Channel(
     @Json(name = "title") val streamTitle: String,
     @Json(name = "live_schedule") val scheduledStart: String,
     @Json(name = "live_start") val startTime: String?,
-    @Json(name = "live_viewers") val viewCount: String?,
+    @Json(name = "live_viewers") private val _viewCount: String?,
     @Json(name = "channel") private val channelJson: Map<String, String>,
 ) : Parcelable {
     val channelName: String = channelJson["name"] as String
     val profilePictureUrl: String = channelJson["photo"] as String
     val streamThumbnail: String = "https://img.youtube.com/vi/$videoKey/maxresdefault.jpg"
     val streamChat: String = "https://www.youtube.com/live_chat?is_popout=1&v=$videoKey"
+    val viewCount = _viewCount ?: "0"
 
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,

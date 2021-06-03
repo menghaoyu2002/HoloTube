@@ -104,10 +104,16 @@ class ChannelViewModel(database: ChannelDao) : ViewModel() {
                     _channels.value!!.live.sortedByDescending { it.channelName }
 
                 ChannelFilters.VIEWCOUNT_HIGH_TO_LOW -> _channels.value!!.live =
-                    _channels.value!!.live.sortedByDescending { it.viewCount!!.toLong() }
+                    _channels.value!!.live.sortedByDescending { it.viewCount.toLong() }
 
-                ChannelFilters.VIEWCOUNT_LOW_TO_HIGH -> _channels.value!!.live =
-                    _channels.value!!.live.sortedBy { it.viewCount!!.toLong() }
+                ChannelFilters.VIEWCOUNT_LOW_TO_HIGH -> {
+                    _channels.value!!.live =
+                        _channels.value!!.live.sortedBy { it.viewCount.toLong() }
+                    Log.i(
+                        "MSG",
+                        "ENTERED"
+                    )
+                }
 
                 ChannelFilters.START_TIME_LOW_TO_HIGH -> _channels.value!!.live =
                     _channels.value!!.live.sortedByDescending { it.startTime }
