@@ -54,7 +54,7 @@ This app implements an user interface heavily inspired by the [twitch app](https
 * [HoloAPI](https://github.com/holofans/holoapi) a REST api for Hololive streamer data
 * [Retrofit2](https://github.com/square/retrofit) for requesting data from the REST api
 * [Moshi](https://github.com/square/moshi/) for parsing JSON data 
-* AndroidX and JetPack for ViewModels, Navigation, Room datbase, LiveData, etc...
+* AndroidX and JetPack for ViewModels, Navigation, Room database, LiveData, etc...
 
 ## Disclaimer
 This app has no affiliation with Hololive or its talents.
