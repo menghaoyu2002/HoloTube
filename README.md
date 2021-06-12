@@ -34,7 +34,7 @@ This app implements an user interface heavily inspired by the [twitch app](https
 
 ## Features
 * Chat displayed **_beside_** stream instead of directly over
-* View all live streams from Hololive talents
+* Watch all live streams from Hololive talents
 * Keep up with all the scheduled streams
 * Ability to follow all your favourite streamers 
 
